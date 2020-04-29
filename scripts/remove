@@ -7,7 +7,7 @@
 #=================================================
 
 source _common.sh
-source ynh_add_extra_apt_repos__3
+#source ynh_add_extra_apt_repos__3
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -37,7 +37,9 @@ supervisorctl stop all
 ynh_print_info --message="Removing OnlyOffice..."
 
 ynh_secure_remove --file=/var/lib/dpkg/info/onlyoffice-documentserver.prerm
-ynh_package_autopurge onlyoffice-documentserver
+#ynh_package_autopurge onlyoffice-documentserver
+apt purge snapd
+rm -rf ~/snap
 
 #=================================================
 # REMOVE THE POSTGRESQL DATABASE
@@ -54,9 +56,9 @@ ynh_print_info --message="Removing dependencies..."
 
 # Remove metapackage and its dependencies
 ynh_remove_app_dependencies
-ynh_remove_extra_repo
+#ynh_remove_extra_repo
 
-apt-key del "E09C A29F 6E17 8040 EF22  B409 8320 CA65 CB2D E8E5"
+#apt-key del "E09C A29F 6E17 8040 EF22  B409 8320 CA65 CB2D E8E5"
 
 #=================================================
 # REMOVE NGINX CONFIGURATION
