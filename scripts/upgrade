@@ -7,7 +7,6 @@
 #=================================================
 
 source _common.sh
-source ynh_add_extra_apt_repos__3
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -44,8 +43,8 @@ if [ -z "$db_name" ]; then
 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
 fi
 
-ynh_secure_remove --file="/etc/apt/sources.list.d/onlyoffice.list"
-ynh_secure_remove --file="/etc/apt/sources.list.d/nodesource.list"
+#ynh_secure_remove --file="/etc/apt/sources.list.d/onlyoffice.list"
+#ynh_secure_remove --file="/etc/apt/sources.list.d/nodesource.list"
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -108,17 +107,17 @@ ynh_system_user_create --username=$app
 #=================================================
 # ADD NODEJS REPOSITORY
 #=================================================
-ynh_print_info --message="Add nodejs repository..."
+#ynh_print_info --message="Add nodejs repository..."
 
-ynh_install_extra_repo --repo="deb https://deb.nodesource.com/node_8.x stretch main" --key="https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+#ynh_install_extra_repo --repo="deb https://deb.nodesource.com/node_8.x stretch main" --key="https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
 
 #=================================================
 # ADD ONLYOFFICE REPOSITORY
 #=================================================
 ynh_print_info --message="Add OnlyOffice repository..."
 
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-ynh_install_extra_repo --repo="deb http://download.onlyoffice.com/repo/debian squeeze main" --append
+#apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+#ynh_install_extra_repo --repo="deb http://download.onlyoffice.com/repo/debian squeeze main" --append
 
 #=================================================
 # CONFIGURE ONLYOFFICE
@@ -137,7 +136,7 @@ echo onlyoffice-documentserver onlyoffice/db-name string $db_name | sudo debconf
 #=================================================
 ynh_print_info --message="Upgrading OnlyOffice..."
 
-ynh_add_app_dependencies --package="onlyoffice-documentserver"
+snap install onlyoffice-ds
 
 #=================================================
 # MODIFY A CONFIG FILE
